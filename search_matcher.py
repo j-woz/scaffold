@@ -3,11 +3,18 @@ import difflib
 import math
 import random
 
-#
-
 
 class SearchMatcher:
 
+    """
+    Proposed random search API with dummy implementation for
+    string matching.
+    Each instance of this is a string with its associated match
+    score against the target.
+    A higher score is better.  Scores range from 0.0 to 1.0 .
+    """
+
+    # Special value indicating we found the target
     FOUND = 1000
 
     def __init__(self, target, value=None, score=None, length=None):
@@ -35,16 +42,18 @@ class SearchMatcher:
         self.score = score
 
     def random_value(n):
+        """ Produce a random string """
         L = []
         for i in range(0, n):
             L.append(SearchMatcher.random_character())
         return "".join(L)
 
     def random_character():
-        """Generate a random lower-case alphabet character"""
+        """ Generate a random lower-case alphabet character """
         return chr(random.choice(range(ord('a'), ord('z')+1)))
 
     def expand(self, value):
+        """ Try inserting a random character at a random location """
         c = SearchMatcher.random_character()
         L = list(value)
         i = random.randint(0, len(L))
@@ -52,6 +61,7 @@ class SearchMatcher:
         return "".join(L)
 
     def shrink(self, value):
+        """ Try deleting a character from a random location """
         if len(value) == 0:
             return ""
         L = list(value)
@@ -60,10 +70,16 @@ class SearchMatcher:
         return "".join(L)
 
     def prune(self):
+        """ Just stop and log that. """
         print("pruned! '%s'" % self.value)
         pass
 
     def decide(self):
+        """
+        Try expanding or shrinking the string value.
+        Returns list of candidates to add to the work Q,
+        possibly including self.
+        """
         print("")
         print("decide: " + str(self))
         results = []
@@ -95,11 +111,17 @@ class SearchMatcher:
         return results
 
     def compute_score(self, value1, value2):
+        """ Score this string pair """
         L = sorted([value1, value2])
         score = difflib.SequenceMatcher(None, *L).ratio()
         return score
 
     def step(self, score):
+        """
+        Should we accept this new score?
+        If better (higher), we always accept.
+        If worse  (lower), we may accept (explore).
+        """
         if score > self.score:
             return True
         if score == 0:
