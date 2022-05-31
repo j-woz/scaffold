@@ -20,7 +20,7 @@ for i in range(0, start_count):
 print(Q)
 
 # Max number of strings to evaluate before giving up
-max_tries = 10*1000*1000
+max_tries = 1*1000*1000
 # Number of tries so far
 tries = 0
 
@@ -35,6 +35,7 @@ while True:
         break
     if tries == max_tries:
         break
+    # new: List of new SearchMatchers
     new = current.decide()
     if new == SearchMatcher.FOUND:
         success = True

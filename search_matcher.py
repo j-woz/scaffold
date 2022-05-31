@@ -2,6 +2,7 @@
 import difflib
 import math
 import random
+import re
 
 
 class SearchMatcher:
@@ -16,6 +17,8 @@ class SearchMatcher:
 
     # Special value indicating we found the target
     FOUND = 1000
+    # For parse()
+    pattern = None
 
     def __init__(self, target, value=None, score=None, length=None):
         self.target = target
@@ -27,6 +30,15 @@ class SearchMatcher:
             self.score = self.compute_score(self.target, self.value)
         else:
             self.score = score
+
+    def parse(target, s):
+        if SearchMatcher.pattern is None:
+            SearchMatcher.pattern = re.compile("'(.*)'=(.*)")
+        m = SearchMatcher.pattern.match(s)
+        assert m
+        value = m.group(1)
+        score = m.group(2)
+        return SearchMatcher(target, value, float(score))
 
     def __str__(self):
         return "'%s'=%0.3f" % (self.value, self.score)
@@ -92,6 +104,7 @@ class SearchMatcher:
         new = SearchMatcher(self.target, bigger, score_bigger)
         print("expand: " + str(new))
         if self.step(score_bigger):
+            print("expand-accept")
             results.append(new)
 
         smaller = self.shrink(self.value)
@@ -99,6 +112,7 @@ class SearchMatcher:
         new = SearchMatcher(self.target, smaller, score_smaller)
         print("shrink: " + str(new))
         if self.step(score_smaller):
+            print("shrink-accept")
             results.append(new)
 
         if self.value == "":

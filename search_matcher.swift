@@ -19,9 +19,16 @@ result = ";".join(L)
 {
   o = python_persist(
 ----
+from search_matcher import SearchMatcher
 target    = "%s"
 candidate = "%s"
-result = "x;y;z;" + target + candidate
+sm = SearchMatcher.parse(target, candidate)
+new = sm.decide()
+if new == SearchMatcher.FOUND:
+    result = "FOUND"
+else:
+    L = [ str(sm) for sm in new ]
+    result = ";".join(L)
 ---- % (target, candidate),
 "result");
 }

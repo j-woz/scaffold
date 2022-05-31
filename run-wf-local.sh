@@ -1,4 +1,5 @@
 #!/bin/bash
 
 export PYTHONPATH=$PWD
-swift-t workflow.swift
+export PYTHONUNBUFFERED=1
+swift-t $* workflow.swift
