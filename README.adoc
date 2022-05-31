@@ -19,7 +19,13 @@ In `workflow.py`, the `start_count`, `start_length`, and `target` settings confi
 === File index
 
 `workflow.py`::
-The workflow layer
+The workflow layer (Python).
+
+`workflow.swift`::
+The workflow layer (Swift/T).
 
 `search_matcher.py`::
 The search API with dummy string search implementation.
+
+`search_matcher.swift`::
+Wrapper functions for Swift/T to access the API.
