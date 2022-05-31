@@ -1,1 +1,25 @@
-# scaffold
+= scaffold
+
+== SearchMatcher
+
+Perform a search on a SequenceMatcher problem.
+
+=== Usage
+
+----
+$ python workflow.py | out.txt
+----
+
+The tail of `out.txt` will show if the search succeeded and what the best matches found were.
+
+=== Configuration
+
+In `workflow.py`, the `start_count`, `start_length`, and `target` settings configure the difficulty of the search.
+
+=== File index
+
+`workflow.py`::
+The workflow layer
+
+`search_matcher.py`::
+The search API with dummy string search implementation.
