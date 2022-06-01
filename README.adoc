@@ -3,6 +3,9 @@
 == SearchMatcher
 
 Perform a search on a SequenceMatcher problem.
+In this problem, we are trying to construct a `target` string
+through a concurrent random walk using only the string similarity ratio to
+guide progress.
 
 === Usage
 
@@ -29,3 +32,9 @@ The search API with dummy string search implementation.
 
 `search_matcher.swift`::
 Wrapper functions for Swift/T to access the API.
+
+`stats.py`::
+Reads the output of `workflow.swift` and computes statistics.
+
+`util.py`::
+Helpers for `stats.py`.

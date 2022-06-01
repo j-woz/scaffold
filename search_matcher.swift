@@ -1,4 +1,12 @@
 
+/**
+   SEARCH MATCHER SWIFT
+   Swift -> Python API wrapper
+*/
+
+/** Return a semicolon-delimited string of random
+    initial work to do.
+*/
 (string o) start_random(string target, int start, int length)
 {
   o = python_persist(
@@ -15,6 +23,9 @@ result = ";".join(L)
 "result");
 }
 
+/** Return a semicolon-delimited string of new work
+    to do.  Or FOUND if target was found.
+*/
 (string o) decide(string target, string candidate)
 {
   o = python_persist(
